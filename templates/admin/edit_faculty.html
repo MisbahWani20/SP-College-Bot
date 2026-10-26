@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Faculty Member</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='admin/admin.css') }}">
+</head>
+<body>
+<div class="sidebar">
+    <h2>CUS AI Admin</h2>
+    <a href="{{ url_for('admin.colleges') }}">Colleges</a>
+    <a href="{{ url_for('admin.faculty') }}">Manage SP College Faculty</a>
+    <a href="/admin/logout">Logout</a>
+</div>
+
+<div class="content">
+    <h1>Edit Faculty Member</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST"
+          action="{{ url_for('admin.faculty_update', faculty_id=member.faculty_id) }}">
+
+        <label>Full Name *</label>
+        <input type="text" name="name"
+               value="{{ member.name }}" required>
+
+        <label>Department *</label>
+        <input type="text" name="department"
+               value="{{ member.department }}" required>
+
+        <label>Designation</label>
+        <input type="text" name="designation"
+               value="{{ member.designation or '' }}">
+
+        <label>Email</label>
+        <input type="email" name="email"
+               value="{{ member.email or '' }}">
+
+        <label>Phone</label>
+        <input type="text" name="phone"
+               value="{{ member.phone or '' }}">
+
+        <label>Office</label>
+        <input type="text" name="office"
+               value="{{ member.office or '' }}">
+
+        <button type="submit">Save Changes</button>
+        <a href="{{ url_for('admin.faculty') }}">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

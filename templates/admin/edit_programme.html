@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Edit Programme</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 350px;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 70px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Edit Academic Programme</h1>
+
+    <form
+        action="{{ url_for(
+            'admin.programme_update',
+            programme_id=programme['id']
+        ) }}"
+        method="POST"
+    >
+
+        <input
+            name="programme"
+            value="{{ programme['programme'] or '' }}"
+            placeholder="Programme Name"
+            required
+        >
+
+        <br>
+
+        <input
+            name="specialization"
+            value="{{ programme['specialization'] or '' }}"
+            placeholder="Specialization"
+        >
+
+        <br>
+
+        <input
+            name="level"
+            value="{{ programme['level'] or '' }}"
+            placeholder="Level (UG / PG / Integrated)"
+        >
+
+        <br>
+
+        <input
+            name="college"
+            value="{{ programme['college'] or '' }}"
+            placeholder="College"
+        >
+
+        <br>
+
+        <input
+            name="department"
+            value="{{ programme['department'] or '' }}"
+            placeholder="Department"
+        >
+
+        <br>
+
+        <input
+            name="duration"
+            value="{{ programme['duration'] or '' }}"
+            placeholder="Duration"
+        >
+
+        <br>
+
+        <input
+            name="programme_type"
+            value="{{ programme['programme_type'] or '' }}"
+            placeholder="Programme Type"
+        >
+
+        <br>
+
+        <input
+            name="school"
+            value="{{ programme['school'] or '' }}"
+            placeholder="School"
+        >
+
+        <br>
+
+        <input
+            name="campus"
+            value="{{ programme['campus'] or '' }}"
+            placeholder="Campus"
+        >
+
+        <br>
+
+        <input
+            name="eligibility"
+            value="{{ programme['eligibility'] or '' }}"
+            placeholder="Eligibility"
+        >
+
+        <br>
+
+        <input
+            name="intake"
+            value="{{ programme['intake'] or '' }}"
+            placeholder="Intake"
+        >
+
+        <br>
+
+        <input
+            name="fee"
+            value="{{ programme['fee'] or '' }}"
+            placeholder="Fee"
+        >
+
+        <br>
+
+        <textarea
+            name="admission_process"
+            placeholder="Admission Process"
+        >{{ programme['admission_process'] or '' }}</textarea>
+
+        <br>
+
+        <textarea
+            name="selection_process"
+            placeholder="Selection Process"
+        >{{ programme['selection_process'] or '' }}</textarea>
+
+        <br>
+
+        <textarea
+            name="overview"
+            placeholder="Programme Overview"
+        >{{ programme['overview'] or '' }}</textarea>
+
+        <br>
+
+        <textarea
+            name="subject_overview"
+            placeholder="Subject Overview"
+        >{{ programme['subject_overview'] or '' }}</textarea>
+
+        <br>
+
+        <input
+            name="source"
+            value="{{ programme['source'] or '' }}"
+            placeholder="Source"
+        >
+
+        <br>
+
+        <input
+            name="url"
+            value="{{ programme['url'] or '' }}"
+            placeholder="Official Source URL"
+        >
+
+        <br>
+
+        <input
+            name="last_updated"
+            value="{{ programme['last_updated'] or '' }}"
+            placeholder="Last Updated"
+        >
+
+        <br>
+
+        <button type="submit">
+            Update Programme
+        </button>
+
+        <a
+            class="back"
+            href="{{ url_for('admin.programmes') }}"
+        >
+            Cancel
+        </a>
+
+    </form>
+
+</body>
+
+</html>
+

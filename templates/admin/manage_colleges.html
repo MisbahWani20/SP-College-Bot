@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manage Colleges</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='admin/admin.css') }}"
+    >
+</head>
+<body>
+<div class="admin-page">
+    <div class="page-header">
+        <h1>
+            Colleges
+        </h1>
+        <p>
+            Add, edit and manage college information.
+        </p>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="toast-container">
+                {% for category, message in messages %}
+                    <div class="admin-toast
+                        {% if category == 'success' %}
+                            toast-success
+                        {% elif category == 'error' %}
+                            toast-error
+                        {% else %}
+                            toast-info
+                        {% endif %}
+                    ">
+                        <div class="toast-icon">
+
+                            {% if category == 'success' %}
+                                <i class="bi bi-check-circle-fill"></i>
+                            {% elif category == 'error' %}
+                                <i class="bi bi-exclamation-circle-fill"></i>
+                            {% else %}
+                                <i class="bi bi-info-circle-fill"></i>
+                            {% endif %}
+                        </div>
+                        <div class="toast-message">
+                            {{ message }}
+                        </div>
+                        <button
+                            type="button"
+                            class="toast-close"
+                            title="Close notification"
+                            aria-label="Close notification"
+                            onclick="this.parentElement.remove()"
+                        >
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <section class="admin-section">
+        <div class="section-header">
+            <h2>
+                Add College
+            </h2>
+            <p>
+                Enter the college information below.
+            </p>
+        </div>
+        <form
+            action="{{ url_for('admin.college_add') }}"
+            method="POST"
+            class="programme-form"
+        >
+            <div class="form-grid">
+                <input
+                    name="college_name"
+                    placeholder="College Name"
+                    required
+                >
+                <input
+                    name="short_name"
+                    placeholder="Short Name"
+                >
+                <input
+                    name="university"
+                    placeholder="University"
+                >
+
+                <input
+                    name="established"
+                    placeholder="Established"
+                >
+
+                <input
+                    name="type"
+                    placeholder="College Type"
+                >
+
+                <input
+                    name="campus"
+                    placeholder="Campus"
+                >
+
+                <input
+                    name="address"
+                    placeholder="Address"
+                >
+
+                <input
+                    name="district"
+                    placeholder="District"
+                >
+
+                <input
+                    name="state"
+                    placeholder="State"
+                >
+
+                <input
+                    name="principal"
+                    placeholder="Principal"
+                >
+
+                <textarea
+                    name="overview"
+                    placeholder="College Overview"
+                ></textarea>
+
+                <textarea
+                    name="departments"
+                    placeholder="Departments"
+                ></textarea>
+
+                <textarea
+                    name="programmes_offered"
+                    placeholder="Programmes Offered"
+                ></textarea>
+
+                <textarea
+                    name="library"
+                    placeholder="Library"
+                ></textarea>
+
+                <textarea
+                    name="hostel"
+                    placeholder="Hostel"
+                ></textarea>
+
+                <textarea
+                    name="laboratories"
+                    placeholder="Laboratories"
+                ></textarea>
+
+                <textarea
+                    name="sports"
+                    placeholder="Sports"
+                ></textarea>
+
+                <textarea
+                    name="ncc"
+                    placeholder="NCC"
+                ></textarea>
+
+                <textarea
+                    name="nss"
+                    placeholder="NSS"
+                ></textarea>
+
+                <textarea
+                    name="facilities"
+                    placeholder="Facilities"
+                ></textarea>
+
+                <input
+                    name="website"
+                    placeholder="Official Website URL"
+                >
+
+                <input
+                    name="google_maps"
+                    placeholder="Google Maps URL"
+                >
+
+                <input
+                    name="official_email"
+                    placeholder="Official Email"
+                    type="email"
+                >
+
+            </div>
+            <div class="form-actions">
+                <button
+                    type="submit"
+                    class="add-programme-button"
+                >
+                    <i class="bi bi-plus-circle"></i>
+                    Add College
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <section class="admin-section">
+        <div class="section-header">
+            <h2>
+                Existing Colleges
+            </h2>
+            <p>
+                Manage colleges currently stored in the chatbot knowledge database.
+            </p>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>College</th>
+                        <th>Short Name</th>
+                        <th>University</th>
+                        <th>District</th>
+                        <th>Principal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in colleges %}
+                    <tr>
+                        <td>
+                            {{ c["college_id"] }}
+                        </td>
+                        <td>
+                            {{ c["college_name"] }}
+                        </td>
+                        <td>
+                            {{ c["short_name"] or "" }}
+                        </td>
+                        <td>
+                            {{ c["university"] or "" }}
+                        </td>
+                        <td>
+                            {{ c["district"] or "" }}
+                        </td>
+                        <td>
+                            {{ c["principal"] or "" }}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a
+                                    class="edit"
+                                    href="{{ url_for(
+                                        'admin.college_edit',
+                                        college_id=c['college_id']
+                                    ) }}"
+                                >
+                                    <i class="bi bi-pencil-square"></i>
+                                    Edit
+                                </a>
+                                <button
+                                    type="button"
+                                    class="delete-button"
+                                    data-college-id="{{ c['college_id'] }}"
+                                    data-college-name="{{ c['college_name'] }}"
+                                    onclick="openDeleteModal(
+                                        this.dataset.collegeId,
+                                        this.dataset.collegeName
+                                    )"
+                                >
+                                    <i class="bi bi-trash3"></i>
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td
+                            colspan="7"
+                            class="empty-table"
+                        >
+                            No colleges found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div
+    id="delete-modal"
+    class="delete-modal"
+    aria-hidden="true"
+>
+    <div
+        class="delete-modal-overlay"
+        onclick="closeDeleteModal()"
+    ></div>
+
+    <div
+        class="delete-modal-content"
+        role="dialog"
+        aria-modal="true"
+    >
+        <div class="delete-modal-icon">
+
+            <i class="bi bi-trash3-fill"></i>
+
+        </div>
+
+        <h2>
+            Delete College?
+        </h2>
+
+        <p>
+            Are you sure you want to delete
+            <strong id="delete-college-name"></strong>?
+        </p>
+
+        <p class="delete-warning">
+            This action cannot be undone.
+        </p>
+
+        <div class="delete-modal-actions">
+            <button
+                type="button"
+                class="cancel-delete"
+                onclick="closeDeleteModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="confirm-delete"
+                onclick="confirmDelete()"
+            >
+                <i class="bi bi-trash3"></i>
+                Delete College
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+let collegeToDelete = null;
+function openDeleteModal(
+    collegeId,
+    collegeName
+)
+{
+    collegeToDelete = collegeId;
+
+    document.getElementById(
+        "delete-college-name"
+    ).textContent = collegeName;
+
+    const modal =
+        document.getElementById(
+            "delete-modal"
+        );
+
+    modal.classList.add("show");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+}
+
+
+function closeDeleteModal()
+{
+    collegeToDelete = null;
+
+    const modal =
+        document.getElementById(
+            "delete-modal"
+        );
+
+    modal.classList.remove("show");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+}
+
+
+function confirmDelete()
+{
+    if (!collegeToDelete)
+    {
+        return;
+    }
+
+    window.location.href =
+        "/admin/colleges/delete/"
+        + collegeToDelete;
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event)
+    {
+        if (event.key === "Escape")
+        {
+            closeDeleteModal();
+        }
+    }
+);
+
+
+setTimeout(
+    function()
+    {
+        document
+            .querySelectorAll(
+                ".admin-toast"
+            )
+            .forEach(
+                function(toast)
+                {
+                    toast.classList.add(
+                        "toast-hide"
+                    );
+
+                    setTimeout(
+                        function()
+                        {
+                            toast.remove();
+                        },
+                        400
+                    );
+                }
+            );
+    },
+    3500
+);
+
+</script>
+
+</body>
+</html>

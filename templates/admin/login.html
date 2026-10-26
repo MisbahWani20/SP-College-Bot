@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Admin Login | Sri Pratap College</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f7fb,
+                    #eaf0f8
+                );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #1e293b;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+            padding: 20px;
+        }
+        .branding {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .university-logo {
+            width: 105px;
+            height: 105px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .university-name {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            color: #163b70;
+        }
+        .university-location {
+            margin: 3px 0 0;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 28px 30px 26px;
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, 0.10);
+            border:
+                1px solid #e2e8f0;
+        }
+        .login-heading {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        .login-heading h2 {
+            margin: 0;
+            font-size: 21px;
+            color: #1e293b;
+        }
+        .login-heading p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+        }
+        .form-group input {
+            width: 100%;
+            height: 44px;
+            padding:
+                0 13px;
+            border:
+                1px solid #d8dee8;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            color: #1e293b;
+            background: #ffffff;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+        .form-group input:focus {
+            border-color: #2563eb;
+            box-shadow:
+                0 0 0 3px
+                rgba(37, 99, 235, 0.10);
+        }
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+        .login-button {
+            width: 100%;
+            height: 44px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            background:
+                #163b70;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+        .login-button:hover {
+            background: #102f5a;
+        }
+        .login-button:active {
+            transform: scale(0.99);
+        }
+        .error-message {
+            margin: 14px 0 0;
+            padding: 9px 12px;
+            border-radius: 7px;
+            background: #fef2f2;
+            border:
+                1px solid #fecaca;
+            color: #dc2626;
+            text-align: center;
+            font-size: 13px;
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        @media (max-height: 650px) {
+            .login-container {
+                padding: 10px;
+            }
+            .university-logo {
+                width: 75px;
+                height: 75px;
+                margin-bottom: 5px;
+            }
+            .university-name {
+                font-size: 19px;
+            }
+            .login-card {
+                padding:
+                20px 24px;
+            }
+            .branding {
+
+                margin-bottom: 10px;
+
+            }
+        }
+        @media (max-width: 480px) {
+            .login-container {
+                max-width: 100%;
+                padding: 15px;
+            }
+            .login-card {
+
+                padding:
+                    24px 20px;
+
+            }
+            .university-logo {
+
+                width: 90px;
+                height: 90px;
+
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <div class="branding">
+
+        <img
+            src="{{ url_for(
+                'static',
+                filename='images/cus-logo.jpg'
+            ) }}"
+            alt="Cluster University Srinagar Logo"
+            class="university-logo"
+        >
+
+        <h1 class="university-name">
+            Sri Pratap College
+        </h1>
+
+        <p class="university-location">
+            Jammu & Kashmir
+        </p>
+    </div>
+    <div class="login-card">
+        <div class="login-heading">
+            <h2>
+                Administrator Login
+            </h2>
+            <p>
+                Secure administration panel
+            </p>
+        </div>
+        <form
+            action="/admin/login"
+            method="POST"
+        >
+
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter admin username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter admin password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+            <button
+                type="submit"
+                class="login-button"
+            >
+                Sign In
+            </button>
+            {% if error %}
+                <div class="error-message">
+                  {{ error }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+    <div class="login-footer">
+        Sri Pratap College
+        &nbsp;•&nbsp;
+        AI Assistant Administration
+    </div>
+</div>
+</body>
+</html>
+

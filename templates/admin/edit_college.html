@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Edit College</title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='admin/admin.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="admin-page">
+
+    <div class="page-header">
+
+        <h1>
+            Edit College
+        </h1>
+
+        <p>
+            Update the college information below.
+        </p>
+
+    </div>
+
+
+    <section class="admin-section">
+
+        <form
+            action="{{ url_for(
+                'admin.college_update',
+                college_id=college['college_id']
+            ) }}"
+            method="POST"
+        >
+
+            <div class="form-grid">
+
+                <input
+                    name="college_name"
+                    value="{{ college['college_name'] or '' }}"
+                    placeholder="College Name"
+                    required
+                >
+
+                <input
+                    name="short_name"
+                    value="{{ college['short_name'] or '' }}"
+                    placeholder="Short Name"
+                >
+
+                <input
+                    name="university"
+                    value="{{ college['university'] or '' }}"
+                    placeholder="University"
+                >
+
+                <input
+                    name="established"
+                    value="{{ college['established'] or '' }}"
+                    placeholder="Established"
+                >
+
+                <input
+                    name="type"
+                    value="{{ college['type'] or '' }}"
+                    placeholder="College Type"
+                >
+
+                <input
+                    name="campus"
+                    value="{{ college['campus'] or '' }}"
+                    placeholder="Campus"
+                >
+
+                <input
+                    name="address"
+                    value="{{ college['address'] or '' }}"
+                    placeholder="Address"
+                >
+
+                <input
+                    name="district"
+                    value="{{ college['district'] or '' }}"
+                    placeholder="District"
+                >
+
+                <input
+                    name="state"
+                    value="{{ college['state'] or '' }}"
+                    placeholder="State"
+                >
+
+                <input
+                    name="principal"
+                    value="{{ college['principal'] or '' }}"
+                    placeholder="Principal"
+                >
+
+                <textarea
+                    name="overview"
+                    placeholder="College Overview"
+                >{{ college['overview'] or '' }}</textarea>
+
+                <textarea
+                    name="departments"
+                    placeholder="Departments"
+                >{{ college['departments'] or '' }}</textarea>
+
+                <textarea
+                    name="programmes_offered"
+                    placeholder="Programmes Offered"
+                >{{ college['programmes_offered'] or '' }}</textarea>
+
+                <textarea
+                    name="library"
+                    placeholder="Library"
+                >{{ college['library'] or '' }}</textarea>
+
+                <textarea
+                    name="hostel"
+                    placeholder="Hostel"
+                >{{ college['hostel'] or '' }}</textarea>
+
+                <textarea
+                    name="laboratories"
+                    placeholder="Laboratories"
+                >{{ college['laboratories'] or '' }}</textarea>
+
+                <textarea
+                    name="sports"
+                    placeholder="Sports"
+                >{{ college['sports'] or '' }}</textarea>
+
+                <textarea
+                    name="ncc"
+                    placeholder="NCC"
+                >{{ college['ncc'] or '' }}</textarea>
+
+                <textarea
+                    name="nss"
+                    placeholder="NSS"
+                >{{ college['nss'] or '' }}</textarea>
+
+                <textarea
+                    name="facilities"
+                    placeholder="Facilities"
+                >{{ college['facilities'] or '' }}</textarea>
+
+                <input
+                    name="website"
+                    value="{{ college['website'] or '' }}"
+                    placeholder="Official Website URL"
+                >
+
+                <input
+                    name="google_maps"
+                    value="{{ college['google_maps'] or '' }}"
+                    placeholder="Google Maps URL"
+                >
+
+                <input
+                    name="official_email"
+                    value="{{ college['official_email'] or '' }}"
+                    placeholder="Official Email"
+                    type="email"
+                >
+            </div>
+            <div class="form-actions">
+                <button
+                    type="submit"
+                    class="add-programme-button"
+                >
+                    <i class="bi bi-check-circle"></i>
+                    Update College
+                </button>
+                <a
+                    href="{{ url_for('admin.colleges') }}"
+                    class="edit"
+                >
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </section>
+</div>
+</body>
+</html>
